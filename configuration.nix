@@ -6,7 +6,7 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ # Include the results of the hardware scan. This means --impure will need to be used when rebuilding!
       /etc/nixos/hardware-configuration.nix
     ];
 
