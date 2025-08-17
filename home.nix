@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # TODO please change the username & home directory to your own
   home.username = "lilly";
   home.homeDirectory = "/home/lilly";
 
@@ -28,11 +27,8 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    # here is some command line tools I use frequently
-    # feel free to add your own or remove some of them
 
     neofetch
-    nnn # terminal file manager
 
     # archives
     zip
@@ -44,7 +40,6 @@
     ripgrep # recursively searches directories for a regex pattern
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processor https://github.com/mikefarah/yq
-    eza # A modern replacement for ‘ls’
     fzf # A command-line fuzzy finder
 
     # networking tools
@@ -67,12 +62,6 @@
     gawk
     zstd
     gnupg
-
-    # nix related
-    #
-    # it provides the command `nom` works just like `nix`
-    # with more details log output
-    nix-output-monitor
 
     # productivity
     hugo # static site generator
