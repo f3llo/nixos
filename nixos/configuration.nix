@@ -2,8 +2,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan. This means --impure will need to be used when rebuilding!
-      /etc/nixos/hardware-configuration.nix
+    [ # Change the impure flag
+      ./hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -77,7 +77,6 @@
   # Global packages?
   environment.systemPackages = with pkgs; [
     git
-    neovim
     wget
   ];
 
