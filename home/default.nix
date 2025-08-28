@@ -8,24 +8,34 @@
   home.username = "lilly";
   home.homeDirectory = "/home/lilly";
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs; [ # i3 installed differently
 
     neofetch
-    i3
+		nerd-fonts.iosevka-term	#nerdfonts
+		
+		# Please fix dev enviornment!
+		python3
+		audacity
+		
+		wine64
+		winetricks
 
-    # archives
+		legcord
+
+
     zip
     xz
+    ripgrep # recursively searches directories for a regex pattern
+    fzf # A command-line fuzzy finder
+		feh
 	
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nixvim";
     })  # or just nixpkgs.nixvim if available
     )
 
-    # utils
-    ripgrep # recursively searches directories for a regex pattern
-    fzf # A command-line fuzzy finder
   ];
+
 
   #---------- PROGRAMS CONFIG ----------#
 
@@ -39,9 +49,23 @@
   # configure nixvim
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
     
     colorschemes.catppuccin.enable = true;
-  };
+    opts = {
+      number = true;
+      relativenumber = true;
+      tabstop = 2;
+      shiftwidth = 2;
+    };
+		
+		plugins = {
+			lualine.enable = true;
+			autoclose.enable = true;
+			lsp.enable = true;
+		};
+  	# Configure and modularize
+	};
 
   # starship - an customizable prompt for any shell
   programs.starship = {

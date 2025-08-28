@@ -63,7 +63,6 @@
     pulse.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lilly = {
     isNormalUser = true;
     description = "Lilly Groot Wassink";
@@ -74,10 +73,10 @@
     ];
   };
 
-  # Global packages?
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [ # Basically just the barebones to fetch new config!
     git
     wget
+		gnome-tweaks
   ];
 
   # Install firefox.
