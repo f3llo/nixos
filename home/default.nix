@@ -11,23 +11,32 @@
   home.packages = with pkgs; [ # i3 installed differently
 
     neofetch
+    kitty
+		hyfetch
 		nerd-fonts.iosevka-term	#nerdfonts
-		
+    rpi-imager
+    zoom-us
+
+		hunspellDicts.nl_nl
+
 		# Please fix dev enviornment!
 		python3
+		haskell.compiler.native-bignum.ghcHEAD
 		audacity
-		
-		wine64
-		winetricks
+    dockerfile-language-server-nodejs
 
 		legcord
-
+    cemu
+    shattered-pixel-dungeon
+    spotify-player
+    steam-unwrapped # Pirate stuff
 
     zip
     xz
     ripgrep # recursively searches directories for a regex pattern
     fzf # A command-line fuzzy finder
 		feh
+		tree # Map out directories
 	
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nixvim";
@@ -55,6 +64,7 @@
     opts = {
       number = true;
       relativenumber = true;
+			expandtab = true; # Tabulars are converted to spaces (Haskell)
       tabstop = 2;
       shiftwidth = 2;
     };

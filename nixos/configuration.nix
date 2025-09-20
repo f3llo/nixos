@@ -44,6 +44,8 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+	# Enable i3wm
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -52,6 +54,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  # Ollama -> Port to docker!
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -81,6 +85,7 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+	programs.niri.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -92,7 +97,7 @@
   environment.variables.EDITOR = "neovim";
 
   # Enable docker
-  virtualisation.docker.enable = true;
+  virtualisation.docker.enable = false;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
