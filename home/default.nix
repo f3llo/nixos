@@ -9,27 +9,37 @@
   home.homeDirectory = "/home/lilly";
 
   home.packages = with pkgs; [ # i3 installed differently
+    # Regular packages
+
+    rpi-imager # Replace
+		audacity
+    zoom-us # Nederlands
+    anki
+    thunderbird
+    libreoffice
+    gnome-tweaks
+
+    # Terminal related
 
     neofetch
     kitty
 		hyfetch
 		nerd-fonts.iosevka-term	#nerdfonts
-    rpi-imager
-    zoom-us
-    anki
+
+    # Privacy
 
     tor
     tor-browser
+    searxng
 
 		hunspellDicts.nl_nl
 
 		# Please fix dev enviornment!
 		python3
 		haskell.compiler.native-bignum.ghcHEAD
-		audacity
     dockerfile-language-server
 
-		legcord
+		legcord # Discord alternative
     cemu
     shattered-pixel-dungeon
     spotify-player

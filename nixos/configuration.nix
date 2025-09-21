@@ -72,15 +72,15 @@
     description = "Lilly Groot Wassink";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      thunderbird
-      libreoffice
+      #thunderbird
+      #libreoffice
+		  #gnome-tweaks
     ];
   };
 
   environment.systemPackages = with pkgs; [ # Basically just the barebones to fetch new config!
     git
     wget
-		gnome-tweaks
   ];
 
   # Install firefox.
