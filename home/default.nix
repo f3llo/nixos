@@ -16,6 +16,10 @@
 		nerd-fonts.iosevka-term	#nerdfonts
     rpi-imager
     zoom-us
+    anki
+
+    tor
+    tor-browser
 
 		hunspellDicts.nl_nl
 
@@ -23,13 +27,14 @@
 		python3
 		haskell.compiler.native-bignum.ghcHEAD
 		audacity
-    dockerfile-language-server-nodejs
+    dockerfile-language-server
 
 		legcord
     cemu
     shattered-pixel-dungeon
     spotify-player
-    steam-unwrapped # Pirate stuff
+    #steam-unwrapped # Pirate stuff
+    lutris
 
     zip
     xz

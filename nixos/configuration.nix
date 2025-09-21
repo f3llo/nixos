@@ -70,7 +70,7 @@
   users.users.lilly = {
     isNormalUser = true;
     description = "Lilly Groot Wassink";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       thunderbird
       libreoffice
@@ -97,10 +97,14 @@
   environment.variables.EDITOR = "neovim";
 
   # Enable docker
-  virtualisation.docker.enable = false;
+  #virtualisation.docker.enable = false;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+
+  # Steam
+  programs.steam.enable = true;
+  hardware.opengl.driSupport32Bit = true;
 
   system.stateVersion = "25.05";
 
