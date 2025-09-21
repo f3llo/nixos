@@ -19,12 +19,18 @@
     libreoffice
     gnome-tweaks
 
+    # IRC Chat
+
+    soju # Bouncer
+    hexchat # IRC client
+
     # Terminal related
 
     neofetch
     kitty
 		hyfetch
 		nerd-fonts.iosevka-term	#nerdfonts
+    ranger # File manager
 
     # Privacy
 
@@ -62,6 +68,19 @@
 
 
   #---------- PROGRAMS CONFIG ----------#
+
+  wayland.windowManager.sway = {
+    enable = true;
+    config = rec {
+      modifier = "Mod4";
+      # Use kitty as default terminal
+      terminal = "kitty"; 
+      startup = [
+        # Launch Firefox on start
+        {command = "firefox";}
+      ];
+    };
+  };
 
   # basic configuration of git, please change to your own
   programs.git = {

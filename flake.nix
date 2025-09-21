@@ -36,7 +36,7 @@
             home-manager.useUserPackages = true;
 
             home-manager.users.lilly = import ./home/default.nix;
-	    home-manager.extraSpecialArgs = { inherit inputs outputs; };
+	          home-manager.extraSpecialArgs = { inherit inputs outputs; };
           }
 
         ];

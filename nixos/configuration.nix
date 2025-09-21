@@ -38,13 +38,13 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  #services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
 
-	# Enable i3wm
+  services.displayManager.ly.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -72,9 +72,7 @@
     description = "Lilly Groot Wassink";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      #thunderbird
-      #libreoffice
-		  #gnome-tweaks
+      # Defined in home manager!
     ];
   };
 
@@ -85,7 +83,6 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-	programs.niri.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -105,6 +102,8 @@
   # Steam
   programs.steam.enable = true;
   hardware.opengl.driSupport32Bit = true;
+
+  security.polkit.enable = true;
 
   system.stateVersion = "25.05";
 
