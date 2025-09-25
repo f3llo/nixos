@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
   ];
 
   home.username = "lilly";
@@ -18,6 +18,14 @@
     thunderbird
     libreoffice
     gnome-tweaks
+    pavucontrol
+    gimp
+    alsa-utils
+
+    # Screenshot
+
+    grim
+    slurp
 
     # IRC Chat
 
@@ -28,9 +36,12 @@
 
     neofetch
     kitty
+    alacritty
 		hyfetch
-		nerd-fonts.iosevka-term	#nerdfonts
+		nerd-fonts.iosevka-term	# nerdfonts
+    #nerd-fonts-symbols-only # Symbols
     ranger # File manager
+    swaylock
 
     # Privacy
 
@@ -58,7 +69,14 @@
     fzf # A command-line fuzzy finder
 		feh
 		tree # Map out directories
-	
+    
+    # Networking
+  
+    nmap
+    netcat
+    wireguard-tools
+    traceroute
+
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nixvim";
     })  # or just nixpkgs.nixvim if available
@@ -111,6 +129,9 @@
   	# Configure and modularize
 	};
 
+  # Install firefox 
+  programs.firefox.enable = true;
+
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
@@ -123,17 +144,16 @@
     };
   };
 
-  # alacritty - a cross-platform, GPU-accelerated terminal emulator
-  programs.alacritty = {
+  programs.kitty = {
     enable = true;
-    # custom settings
     settings = {
-      env.TERM = "xterm-256color";
-      font = {
-        size = 12;
-      };
-      scrolling.multiplier = 5;
-      selection.save_to_clipboard = true;
+      confirm_os_window_close = 0;
+      dynamic_background_opacity = true;
+      enable_audio_bell = false;
+      mouse_hide_wait = "-1.0";
+      window_padding_width = 10;
+      background_opacity = "0.9";
+      background_blur = 5;
     };
   };
 
@@ -148,6 +168,7 @@
     # set some aliases, feel free to add more or remove some
     shellAliases = {
       rebuild = "sudo nixos-rebuild switch --impure --flake /home/lilly/nixos";
+      backup = "rsync -avz --delete --exclude='.*' /home/lilly/Documents lilly@192.168.0.103:/home/lilly/backup"; # Find better command
     };
   };
 

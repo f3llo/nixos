@@ -14,10 +14,10 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
+  programs.nm-applet.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -37,20 +37,7 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  #services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
-
   services.displayManager.ly.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -65,15 +52,41 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
+    wireplumber.enable = true;
   };
+
+  boot.extraModprobeConfig = ''
+  options snd_hda_intel model=headset-mode
+  '';
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        # Shows battery charge of connected devices on supported
+        # Bluetooth adapters. Defaults to 'false'.
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        # Enable all controllers when they are found. This includes
+        # adapters present on start as well as adapters that are plugged
+        # in later on. Defaults to 'true'.
+        AutoEnable = true;
+      };
+    };
+  };
+
 
   users.users.lilly = {
     isNormalUser = true;
     description = "Lilly Groot Wassink";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      # Defined in home manager!
-    ];
   };
 
   environment.systemPackages = with pkgs; [ # Basically just the barebones to fetch new config!
@@ -81,29 +94,22 @@
     wget
   ];
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Set the default editor to vim
   environment.variables.EDITOR = "neovim";
-
-  # Enable docker
-  #virtualisation.docker.enable = false;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Steam
   programs.steam.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable32Bit = true;
 
+  # Automatic usage of keys
+  programs.ssh.startAgent = true;
+  
   security.polkit.enable = true;
+  security.pam.services.swaylock = {};
+  
+  # Enable WireGuard
 
   system.stateVersion = "25.05";
 
