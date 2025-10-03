@@ -35,7 +35,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.lilly = import ./home/default.nix;
+            home-manager.users.matthijs = import ./home/default.nix;
 	          home-manager.extraSpecialArgs = { inherit inputs outputs; };
           }
 
