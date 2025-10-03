@@ -13,11 +13,18 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos-thinkpad"; # Define your hostname.
 
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
-  networking.nameservers = [ "192.168.0.104" "1.1.1.1" ];
+
+  # Clean system
+  nix.optimise.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -25,21 +32,23 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_DE.UTF-8";
-    LC_IDENTIFICATION = "de_DE.UTF-8";
-    LC_MEASUREMENT = "de_DE.UTF-8";
-    LC_MONETARY = "de_DE.UTF-8";
-    LC_NAME = "de_DE.UTF-8";
-    LC_NUMERIC = "de_DE.UTF-8";
-    LC_PAPER = "de_DE.UTF-8";
-    LC_TELEPHONE = "de_DE.UTF-8";
-    LC_TIME = "de_DE.UTF-8";
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
+      };
+    };
   };
 
-  services.displayManager.ly.enable = true;
+  security.polkit.enable = true;
+  security.pam.services.swaylock = {};
 
-   # Enable the X11 windowing system.
+  users.users.greeter = {};
+
+
+  # Enable the X11 windowing system -> Als je een normale GUI wilt!
 
   #services.xserver.enable = true;
 
@@ -56,9 +65,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Ollama -> Port to docker!
-
-  # Enable sound with pipewire.
+  # Enable sound with pipewire. I have extra options because of card issues, you may not need them!
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -70,8 +77,6 @@
     wireplumber.enable = true;
   };
 
-  #hardware.alsa.defaultDevice.playback = "sofhdadsp";
-
   boot.extraModprobeConfig = ''
   options sof_hda_dsp model=headset-mode
   options sofhdadsp slots=sof_da_dsp
@@ -79,9 +84,10 @@
 
   boot.blacklistedKernelModules = [ "snd_pcsp" ];
 
-  users.users.lilly = {
+  users.users.matthijs = {
     isNormalUser = true;
-    description = "Lilly Groot Wassink";
+    initialPassword = "default";
+    description = "Matthijs Groot Wassink";
     extraGroups = [ "networkmanager" "wheel" "disk" "storage" "plugdev" ];
   };
 
@@ -95,18 +101,9 @@
 
   environment.variables.EDITOR = "neovim";
 
-  # Steam
-  programs.steam.enable = true;
-  hardware.graphics.enable32Bit = true;
-
   # Automatic usage of keys
   programs.ssh.startAgent = true;
   
-  security.polkit.enable = true;
-  security.pam.services.swaylock = {};
-  
-  # Enable WireGuard
-
   services.devmon.enable = true;
   services.gvfs.enable = true; 
   services.udisks2.enable = true;

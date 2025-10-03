@@ -22,29 +22,24 @@
     }@inputs: 
     let # Read some documentation about how hacky this is ><
       inherit (self) outputs;
-    in {
+    in
+    {
     nixosConfigurations = {
-      lilly = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
-        modules = [ ./nixos/lilly/configuration.nix ];
-      };
-      matthijs = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
-        modules = [ ./nixos/matthijs/configuration.nix ];
-      };
+      nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./nixos/configuration.nix
 
-      homeConfigurations = {
-        "main@lilly" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/lilly/default.nix ];
-        };
-        
-        "main@matthijs" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/matthijs/default.nix ];
-        };
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.lilly = import ./home/default.nix;
+	          home-manager.extraSpecialArgs = { inherit inputs outputs; };
+          }
+
+        ];
       };
     };
   };
