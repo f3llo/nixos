@@ -17,7 +17,7 @@
 
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
-  programs.nm-applet.enable = true;
+  networking.nameservers = [ "192.168.0.104" "1.1.1.1" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -39,6 +39,20 @@
 
   services.displayManager.ly.enable = true;
 
+   # Enable the X11 windowing system.
+
+  #services.xserver.enable = true;
+
+  # Enable the GNOME Desktop Environment.
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
+
+  # Configure keymap in X11
+  #services.xserver.xkb = {
+    #layout = "us";
+    #variant = "";
+  #};
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -56,37 +70,19 @@
     wireplumber.enable = true;
   };
 
+  #hardware.alsa.defaultDevice.playback = "sofhdadsp";
+
   boot.extraModprobeConfig = ''
-  options snd_hda_intel model=headset-mode
+  options sof_hda_dsp model=headset-mode
+  options sofhdadsp slots=sof_da_dsp
   '';
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        # Shows battery charge of connected devices on supported
-        # Bluetooth adapters. Defaults to 'false'.
-        Experimental = true;
-        # When enabled other devices can connect faster to us, however
-        # the tradeoff is increased power consumption. Defaults to
-        # 'false'.
-        FastConnectable = true;
-      };
-      Policy = {
-        # Enable all controllers when they are found. This includes
-        # adapters present on start as well as adapters that are plugged
-        # in later on. Defaults to 'true'.
-        AutoEnable = true;
-      };
-    };
-  };
-
+  boot.blacklistedKernelModules = [ "snd_pcsp" ];
 
   users.users.lilly = {
     isNormalUser = true;
     description = "Lilly Groot Wassink";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "disk" "storage" "plugdev" ];
   };
 
   environment.systemPackages = with pkgs; [ # Basically just the barebones to fetch new config!
@@ -110,6 +106,10 @@
   security.pam.services.swaylock = {};
   
   # Enable WireGuard
+
+  services.devmon.enable = true;
+  services.gvfs.enable = true; 
+  services.udisks2.enable = true;
 
   system.stateVersion = "25.05";
 
