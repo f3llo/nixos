@@ -29,6 +29,7 @@
 
     neofetch
     alacritty
+    kitty
 		hyfetch
 		nerd-fonts.iosevka-term	# nerdfonts
 
@@ -54,8 +55,8 @@
     xz
     ripgrep # recursively searches directories for a regex pattern
     fzf # A command-line fuzzy finder
-		feh
-		tree # Map out directories
+    feh
+    tree # Map out directories
     
     # Networking
   
